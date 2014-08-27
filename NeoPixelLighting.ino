@@ -29,7 +29,7 @@ uint8_t modes[NUM_MODES][4] =
     {255, 255, 255, 100},
     {255, 255, 255, 200},
     
-    {0,   191, 255, 100},
+    {0,   0,   0,   100}
   };
 
 enum
@@ -51,9 +51,11 @@ void setup() {
   strip.begin();
   strip.show();
   
+  // Detect high power mode
   pinMode(HIGH_POWER_MODE_PIN, INPUT_PULLUP);
   high_power_mode = !digitalRead(HIGH_POWER_MODE_PIN);
   
+  // Get current mode from EEPROM
   mode = get_mode();
   
 #ifdef SERIAL_BAUD
@@ -63,6 +65,7 @@ void setup() {
   Serial.println(mode);
 #endif
 
+  // Get data for initial mode state
   uint8_t *mode_data = modes[mode];
   
 #ifdef SERIAL_BAUD
@@ -76,12 +79,34 @@ void setup() {
   Serial.println(mode_data[BRT]);
 #endif
 
+  // Set initial state
   set_strip(mode_data[R], mode_data[G], mode_data[B], mode_data[BRT]);
 }
 
 void loop() {
+  // Handle dynamic modes
+  // Must match index of modes array
+  switch(mode)
+  {
+    case 9:
+      // This is the Adafruit rainbow demo from their library
+      // See: https://github.com/adafruit/Adafruit_NeoPixel
+      uint16_t i, j;
+      for(j=0; j<256; j++)
+      {
+        for(i=0; i<strip.numPixels(); i++)
+          strip.setPixelColor(i, Wheel((i+j) & 255));
+        strip.show();
+        delay(25);
+      }
+      break;
+    default:
+      // Do nothing for static modes
+      ;
+  }
 }
 
+// Gets the current mode from EEPROM and incrments value
 uint8_t get_mode()
 {
   uint8_t mode = EEPROM.read(MODE_ADDR);
@@ -92,6 +117,7 @@ uint8_t get_mode()
   return mode;
 }
 
+// Sets the brightness and colour of the entire strip
 void set_strip(uint8_t r, uint8_t g, uint8_t b, uint8_t brt)
 {
   if(high_power_mode)
@@ -105,5 +131,23 @@ void set_strip(uint8_t r, uint8_t g, uint8_t b, uint8_t brt)
     strip.setPixelColor(i, strip.Color(r, g, b));
     strip.show();
     delay(PIXEL_DELAY_TIME);
+  }
+}
+
+uint32_t Wheel(byte WheelPos)
+{
+  if(WheelPos < 85)
+  {
+    return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+  }
+  else if(WheelPos < 170)
+  {
+    WheelPos -= 85;
+    return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+  }
+  else
+  {
+    WheelPos -= 170;
+    return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
   }
 }
