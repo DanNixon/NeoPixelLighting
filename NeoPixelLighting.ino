@@ -1,10 +1,10 @@
 #include <EEPROM.h>
 #include <Adafruit_NeoPixel.h>
 
-#define SERIAL_BAUD 115200
+/* #define SERIAL_BAUD 115200 */
 
 #define NEOPIXEL_PIN 7
-#define PIXEL_COUNT 144
+#define PIXEL_COUNT 35
 
 #define HIGH_POWER_MODE_PIN 12
 
