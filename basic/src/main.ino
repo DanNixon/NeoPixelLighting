@@ -6,13 +6,20 @@
 #define NEOPIXEL_PIN 7
 #define PIXEL_COUNT 35
 
-#define HIGH_POWER_MODE_PIN 12
-
 #define PIXEL_DELAY_TIME 5
 #define MODE_ADDR 0
 
+uint8_t mode;
 Adafruit_NeoPixel strip =
     Adafruit_NeoPixel(PIXEL_COUNT, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
+
+enum DataField
+{
+  DF_RED = 0,
+  DF_GREEN,
+  DF_BLUE,
+  DF_BRIGHTNESS
+};
 
 enum Mode
 {
@@ -54,17 +61,6 @@ uint8_t modes[MODE_COUNT][4] =
   };
 // clang-format on
 
-enum DataField
-{
-  DF_RED = 0,
-  DF_GREEN,
-  DF_BLUE,
-  DF_BRIGHTNESS
-};
-
-uint8_t mode;
-uint8_t high_power_mode = 0;
-
 void setup()
 {
 #ifdef SERIAL_BAUD
@@ -74,16 +70,10 @@ void setup()
   strip.begin();
   strip.show();
 
-  // Detect high power mode
-  pinMode(HIGH_POWER_MODE_PIN, INPUT_PULLUP);
-  high_power_mode = !digitalRead(HIGH_POWER_MODE_PIN);
-
   // Get current mode from EEPROM
   mode = get_mode();
 
 #ifdef SERIAL_BAUD
-  Serial.print("High power mode: ");
-  Serial.println(high_power_mode);
   Serial.print("Mode: ");
   Serial.println(mode);
 #endif
@@ -130,7 +120,9 @@ void loop()
   }
 }
 
-// Gets the current mode from EEPROM and incrments value
+/**
+ * Gets the current mode from EEPROM and incrments value.
+ */
 uint8_t get_mode()
 {
   uint8_t mode = EEPROM.read(MODE_ADDR);
@@ -141,12 +133,11 @@ uint8_t get_mode()
   return mode;
 }
 
-// Sets the brightness and colour of the entire strip
+/**
+ * Sets the brightness and colour of the entire strip.
+ */
 void set_strip(uint8_t r, uint8_t g, uint8_t b, uint8_t brt)
 {
-  if (high_power_mode)
-    brt = 255;
-
   strip.setBrightness(brt);
   strip.show();
 
