@@ -11,10 +11,31 @@
 #define PIXEL_DELAY_TIME 5
 #define MODE_ADDR 0
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip =
+    Adafruit_NeoPixel(PIXEL_COUNT, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
-#define NUM_MODES 10
-uint8_t modes[NUM_MODES][4] =
+enum Mode
+{
+  MODE_OFF = 0,
+
+  MODE_RED,
+  MODE_GREEN,
+  MODE_BLUE,
+
+  MODE_YELLOW,
+  MODE_CYAN,
+  MODE_MAGENTA,
+
+  MODE_WHITE,
+  MODE_BRIGHT_WHITE,
+
+  MODE_WHEEL,
+
+  MODE_COUNT
+};
+
+// clang-format off
+uint8_t modes[MODE_COUNT][4] =
   {
     {0,   0,   0,   0},
 
@@ -31,13 +52,14 @@ uint8_t modes[NUM_MODES][4] =
 
     {0,   0,   0,   100}
   };
+// clang-format on
 
-enum
+enum DataField
 {
-  R = 0,
-  G,
-  B,
-  BRT
+  DF_RED = 0,
+  DF_GREEN,
+  DF_BLUE,
+  DF_BRIGHTNESS
 };
 
 uint8_t mode;
@@ -71,38 +93,38 @@ void setup()
 
 #ifdef SERIAL_BAUD
   Serial.print("R=");
-  Serial.println(mode_data[R]);
+  Serial.println(mode_data[DF_RED]);
   Serial.print("G=");
-  Serial.println(mode_data[G]);
+  Serial.println(mode_data[DF_GREEN]);
   Serial.print("B=");
-  Serial.println(mode_data[B]);
+  Serial.println(mode_data[DF_BLUE]);
   Serial.print("BRT=");
-  Serial.println(mode_data[BRT]);
+  Serial.println(mode_data[DF_BRIGHTNESS]);
 #endif
 
   // Set initial state
-  set_strip(mode_data[R], mode_data[G], mode_data[B], mode_data[BRT]);
+  set_strip(mode_data[DF_RED], mode_data[DF_GREEN], mode_data[DF_BLUE],
+            mode_data[DF_BRIGHTNESS]);
 }
 
 void loop()
 {
   // Handle dynamic modes
-  // Must match index of modes array
-  switch(mode)
+  switch (mode)
   {
-    case 9:
-      // This is the Adafruit rainbow demo from their library
-      // See: https://github.com/adafruit/Adafruit_NeoPixel
-      uint16_t i, j;
-      for(j=0; j<256; j++)
-      {
-        for(i=0; i<strip.numPixels(); i++)
-          strip.setPixelColor(i, wheel((i+j) & 255));
-        strip.show();
-        delay(25);
-      }
-      break;
-    default:
+  case MODE_WHEEL:
+    // This is the Adafruit rainbow demo from their library
+    // See: https://github.com/adafruit/Adafruit_NeoPixel
+    uint16_t i, j;
+    for (j = 0; j < 256; j++)
+    {
+      for (i = 0; i < strip.numPixels(); i++)
+        strip.setPixelColor(i, wheel((i + j) & 255));
+      strip.show();
+      delay(25);
+    }
+    break;
+  default:
       // Do nothing for static modes
       ;
   }
@@ -113,7 +135,7 @@ uint8_t get_mode()
 {
   uint8_t mode = EEPROM.read(MODE_ADDR);
   mode++;
-  if(mode >= NUM_MODES)
+  if (mode >= MODE_COUNT)
     mode = 0;
   EEPROM.write(MODE_ADDR, mode);
   return mode;
@@ -122,13 +144,13 @@ uint8_t get_mode()
 // Sets the brightness and colour of the entire strip
 void set_strip(uint8_t r, uint8_t g, uint8_t b, uint8_t brt)
 {
-  if(high_power_mode)
+  if (high_power_mode)
     brt = 255;
 
   strip.setBrightness(brt);
   strip.show();
 
-  for(uint16_t i = 0; i < strip.numPixels(); i++)
+  for (uint16_t i = 0; i < strip.numPixels(); i++)
   {
     strip.setPixelColor(i, strip.Color(r, g, b));
     strip.show();
@@ -138,11 +160,11 @@ void set_strip(uint8_t r, uint8_t g, uint8_t b, uint8_t brt)
 
 uint32_t wheel(byte wheel_pos)
 {
-  if(wheel_pos < 85)
+  if (wheel_pos < 85)
   {
     return strip.Color(wheel_pos * 3, 255 - wheel_pos * 3, 0);
   }
-  else if(wheel_pos < 170)
+  else if (wheel_pos < 170)
   {
     wheel_pos -= 85;
     return strip.Color(255 - wheel_pos * 3, 0, wheel_pos * 3);
