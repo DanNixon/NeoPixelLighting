@@ -32,7 +32,6 @@ IEffect *g_effects[EFFECT_COUNT] = {
 };
 
 uint8_t get_effect_idx();
-void set_strip(uint8_t r, uint8_t g, uint8_t b, uint8_t brt);
 
 void setup()
 {

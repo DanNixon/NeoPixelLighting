@@ -1,3 +1,3 @@
 # NeoPixelLighting
 
-A no frills NeoPixel lighting system.
+General purpose NeoPixel lighting controller.
