@@ -8,5 +8,9 @@ IEffect::IEffect(Adafruit_NeoPixel &leds)
 void IEffect::setAllLEDs(uint32_t colour)
 {
   for (size_t i = 0; i < m_leds.numPixels(); i++)
+  {
     m_leds.setPixelColor(i, colour);
+    m_leds.show();
+    delay(5);
+  }
 }

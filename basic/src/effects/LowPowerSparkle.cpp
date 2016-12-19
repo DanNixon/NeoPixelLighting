@@ -1,15 +1,37 @@
 #include "LowPowerSparkle.h"
 
-LowPowerSparkle::LowPowerSparkle(Adafruit_NeoPixel &leds)
+LowPowerSparkle::LowPowerSparkle(Adafruit_NeoPixel &leds, uint16_t delay)
     : IEffect(leds)
+    , m_frameDelay(delay)
 {
 }
 
 void LowPowerSparkle::onEntry()
 {
-  /* m_red = {255, 127, 0, 0, 0, 127, 255, 127, 0, 0, 0, 127}; */
-  /* m_green = {0, 127, 255, 127, 0, 0, 0, 127, 255, 127, 0, 0}; */
-  /* m_blue = {0, 0, 0, 127, 255, 127, 0, 0, 0, 127, 255, 127}; */
+  memset(m_red, 0, RIPPLE_COUNT);
+  memset(m_green, 0, RIPPLE_COUNT);
+  memset(m_blue, 0, RIPPLE_COUNT);
+
+  m_red[0] = 255;
+  m_red[1] = 127;
+  m_red[5] = 127;
+  m_red[6] = 256;
+  m_red[7] = 127;
+  m_red[11] = 127;
+
+  m_green[1] = 127;
+  m_green[2] = 256;
+  m_green[3] = 127;
+  m_green[7] = 127;
+  m_green[8] = 256;
+  m_green[9] = 127;
+
+  m_blue[3] = 127;
+  m_blue[4] = 256;
+  m_blue[5] = 127;
+  m_blue[9] = 127;
+  m_blue[10] = 256;
+  m_blue[11] = 127;
 }
 
 void LowPowerSparkle::onOperate()
@@ -19,13 +41,13 @@ void LowPowerSparkle::onOperate()
 
   m_leds.clear();
 
-  for (size_t i = 0; i < RIPPLE_COUNT; i++)
+  for (uint16_t i = 0; i < RIPPLE_COUNT; i++)
     ripple(i, (m_ripplePosition + i) % RIPPLE_COUNT);
 
   m_leds.show();
 
   m_ripplePosition = (m_ripplePosition + 1) % RIPPLE_COUNT;
-  delay(40);
+  delay(m_frameDelay);
 }
 
 void LowPowerSparkle::ripple(int idx, int count)

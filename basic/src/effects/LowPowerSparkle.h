@@ -9,7 +9,7 @@ public:
   static const int RIPPLE_COUNT = 12;
 
 public:
-  LowPowerSparkle(Adafruit_NeoPixel &leds);
+  LowPowerSparkle(Adafruit_NeoPixel &leds, uint16_t delay = 40);
 
   virtual void onEntry() override;
   virtual void onOperate() override;
@@ -18,12 +18,14 @@ protected:
   void ripple(int idx, int count);
 
 protected:
-  int m_ripplePosition;
-  int m_ripples[RIPPLE_COUNT];
+  const uint16_t m_frameDelay;
 
-  int m_red[RIPPLE_COUNT];
-  int m_green[RIPPLE_COUNT];
-  int m_blue[RIPPLE_COUNT];
+  uint16_t m_ripplePosition;
+  uint16_t m_ripples[RIPPLE_COUNT];
+
+  uint8_t m_red[RIPPLE_COUNT];
+  uint8_t m_green[RIPPLE_COUNT];
+  uint8_t m_blue[RIPPLE_COUNT];
 };
 
 #endif

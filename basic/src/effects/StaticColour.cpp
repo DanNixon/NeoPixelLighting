@@ -11,5 +11,4 @@ StaticColour::StaticColour(Adafruit_NeoPixel &leds, uint8_t red, uint8_t green, 
 void StaticColour::onEntry()
 {
   setAllLEDs(m_colour);
-  m_leds.show();
 }

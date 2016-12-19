@@ -6,7 +6,7 @@
 #include "effects/Wheel.h"
 #include "effects/LowPowerSparkle.h"
 
-/* #define SERIAL_BAUD 115200 */
+#define SERIAL_BAUD 115200
 
 #define NEOPIXEL_PIN 7
 #define PIXEL_COUNT 35
@@ -18,17 +18,17 @@ Adafruit_NeoPixel strip =
     Adafruit_NeoPixel(PIXEL_COUNT, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
 #define EFFECT_COUNT 10
-IEffect g_effects[EFFECT_COUNT] = {
-  IEffect(strip),
-  StaticColour(strip, 255, 0, 0),
-  StaticColour(strip, 0, 255, 0),
-  StaticColour(strip, 0, 0, 255),
-  StaticColour(strip, 255, 255, 0),
-  StaticColour(strip, 0, 255, 255),
-  StaticColour(strip, 255, 0, 255),
-  StaticColour(strip, 255, 255, 255),
-  Wheel(strip),
-  LowPowerSparkle(strip)
+IEffect *g_effects[EFFECT_COUNT] = {
+  new IEffect(strip),
+  new StaticColour(strip, 255, 0, 0),
+  new StaticColour(strip, 0, 255, 0),
+  new StaticColour(strip, 0, 0, 255),
+  new StaticColour(strip, 255, 255, 0),
+  new StaticColour(strip, 0, 255, 255),
+  new StaticColour(strip, 255, 0, 255),
+  new StaticColour(strip, 255, 255, 255),
+  new Wheel(strip),
+  new LowPowerSparkle(strip, 120)
 };
 
 uint8_t get_effect_idx();
@@ -42,6 +42,8 @@ void setup()
 
   strip.begin();
   strip.show();
+  strip.setBrightness(200);
+  strip.show();
 
   // Get current effect index from EEPROM
   g_currentEffectIdx = get_effect_idx();
@@ -52,13 +54,13 @@ void setup()
 #endif
 
   // Set initial state
-  g_effects[g_currentEffectIdx].onEntry();
+  g_effects[g_currentEffectIdx]->onEntry();
 }
 
 void loop()
 {
   // Update dynamic state
-  g_effects[g_currentEffectIdx].onOperate();
+  g_effects[g_currentEffectIdx]->onOperate();
 }
 
 /**
