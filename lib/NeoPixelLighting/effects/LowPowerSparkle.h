@@ -9,7 +9,7 @@ public:
   static const int RIPPLE_COUNT = 12;
 
 public:
-  LowPowerSparkle(Adafruit_NeoPixel &leds, uint16_t delay = 40);
+  LowPowerSparkle(uint16_t delay = 40);
 
   virtual void onEntry() override;
   virtual void onOperate() override;

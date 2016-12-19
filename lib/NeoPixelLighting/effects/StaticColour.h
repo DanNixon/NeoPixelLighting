@@ -6,7 +6,7 @@
 class StaticColour : public IEffect
 {
 public:
-  StaticColour(Adafruit_NeoPixel &leds, uint8_t red, uint8_t green, uint8_t blue);
+  StaticColour(uint8_t red, uint8_t green, uint8_t blue);
 
   virtual void onEntry() override;
 

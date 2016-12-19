@@ -20,8 +20,8 @@ uint32_t wheel(byte wheel_pos)
   }
 }
 
-Wheel::Wheel(Adafruit_NeoPixel &leds)
-    : IEffect(leds)
+Wheel::Wheel()
+    : IEffect()
 {
 }
 
@@ -30,9 +30,9 @@ void Wheel::onOperate()
   uint16_t i, j;
   for (j = 0; j < 256; j++)
   {
-    for (i = 0; i < m_leds.numPixels(); i++)
-      m_leds.setPixelColor(i, wheel((i + j) & 255));
-    m_leds.show();
+    for (i = 0; i < m_leds->numPixels(); i++)
+      m_leds->setPixelColor(i, wheel((i + j) & 255));
+    m_leds->show();
     delay(25);
   }
 }

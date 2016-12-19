@@ -6,7 +6,7 @@
 class Wheel : public IEffect
 {
 public:
-  Wheel(Adafruit_NeoPixel &leds);
+  Wheel();
 
   virtual void onOperate() override;
 };

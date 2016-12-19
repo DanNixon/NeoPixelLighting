@@ -5,8 +5,10 @@
 
 class IEffect
 {
+friend class NeoPixelLighting;
+
 public:
-  IEffect(Adafruit_NeoPixel &leds);
+  IEffect();
 
   virtual void onEntry()
   {
@@ -25,7 +27,7 @@ protected:
   void setAllLEDs(uint32_t colour);
 
 protected:
-  Adafruit_NeoPixel &m_leds;
+  Adafruit_NeoPixel *m_leds;
 };
 
 #endif
