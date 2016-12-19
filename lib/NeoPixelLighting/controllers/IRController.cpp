@@ -1,3 +1,6 @@
 #include "IRController.h"
 
-/* TODO */
+bool IRController::testTransfer(uint8_t *nextEffectIdx)
+{
+  /* TODO */
+}

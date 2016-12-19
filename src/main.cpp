@@ -18,7 +18,7 @@ void setup()
 #endif
 
   lighting.begin(7, 35);
-  lighting.setBrightness(50);
+  lighting.setBrightness(180);
 
   lighting.addEffect(new IEffect());
   lighting.addEffect(new StaticColour(255, 0, 0));
