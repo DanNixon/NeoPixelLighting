@@ -12,7 +12,7 @@ class IRController : public IController
 public:
   IRController();
 
-  virtual bool testTransfer(uint8_t *nextEffectIdx) override;
+  virtual void update() override;
 };
 
 #endif

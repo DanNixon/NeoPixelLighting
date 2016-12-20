@@ -5,7 +5,7 @@
 
 class IEffect
 {
-friend class NeoPixelLighting;
+  friend class NeoPixelLighting;
 
 public:
   IEffect();

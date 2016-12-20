@@ -14,7 +14,9 @@ public:
 public:
   SerialController(Stream &stream);
 
-  virtual bool testTransfer(uint8_t *nextEffectIdx) override;
+  virtual void update() override;
+  virtual void onSetBrightness(uint8_t brightness) override;
+  virtual void onSetEffect(uint8_t effectIdx) override;
 
 protected:
   void bufferReset();

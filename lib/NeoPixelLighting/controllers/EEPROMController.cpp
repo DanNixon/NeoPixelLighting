@@ -11,24 +11,30 @@ EEPROMController::EEPROMController(uint8_t address, bool incrementOnPower)
 {
 }
 
-bool EEPROMController::testTransfer(uint8_t *nextEffectIdx)
+void EEPROMController::update()
 {
   if (!m_executed)
   {
-    uint8_t idx = EEPROM.read(m_address);
+    uint8_t brightness = EEPROM.read(m_address + 1);
+    m_host->setBrightness(brightness);
 
+    uint8_t idx = EEPROM.read(m_address);
     if (m_incrementOnPower)
       idx++;
-
     if (idx >= m_host->getNumEffects())
       idx = 0;
+    m_host->switchToEffect(idx);
 
-    EEPROM.write(m_address, idx);
-
-    *nextEffectIdx = idx;
     m_executed = true;
-    return true;
   }
+}
 
-  return false;
+void EEPROMController::onSetBrightness(uint8_t brightness)
+{
+  EEPROM.write(m_address + 1, brightness);
+}
+
+void EEPROMController::onSetEffect(uint8_t effectIdx)
+{
+  EEPROM.write(m_address, effectIdx);
 }

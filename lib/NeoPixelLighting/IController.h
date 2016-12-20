@@ -13,7 +13,15 @@ public:
   {
   }
 
-  virtual bool testTransfer(uint8_t *nextEffectIdx) = 0;
+  virtual void update() = 0;
+
+  virtual void onSetBrightness(uint8_t brightness)
+  {
+  }
+
+  virtual void onSetEffect(uint8_t effectIdx)
+  {
+  }
 
 protected:
   NeoPixelLighting *m_host;

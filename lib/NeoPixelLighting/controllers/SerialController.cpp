@@ -8,10 +8,8 @@ SerialController::SerialController(Stream &stream)
   bufferReset();
 }
 
-bool SerialController::testTransfer(uint8_t *nextEffectIdx)
+void SerialController::update()
 {
-bool retVal = false;
-
   while (m_stream.available())
   {
     char c = m_stream.read();
@@ -23,32 +21,37 @@ bool retVal = false;
       int16_t data;
       sscanf(m_buffer, "%c=%i;", &command, &data);
 
-      switch(command)
+      switch (command)
       {
-        case 'B':
-        case 'b':
-          m_host->setBrightness(data);
-          m_stream.print("brightness=");
-          m_stream.println(data);
-          break;
+      case 'B':
+      case 'b':
+        m_host->setBrightness(data);
+        break;
 
-        case 'E':
-        case 'e':
-          *nextEffectIdx = data;
-          retVal = true;
-          m_stream.print("effect=");
-          m_stream.println(data);
-          break;
+      case 'E':
+      case 'e':
+        m_host->switchToEffect(data);
+        break;
 
-        default:
-          m_stream.println("dafuq?");
+      default:
+        m_stream.println("dafuq?");
       }
 
       bufferReset();
     }
   }
+}
 
-  return retVal;
+void SerialController::onSetBrightness(uint8_t brightness)
+{
+  m_stream.print("brightness=");
+  m_stream.println(brightness);
+}
+
+void SerialController::onSetEffect(uint8_t effectIdx)
+{
+  m_stream.print("effect=");
+  m_stream.println(effectIdx);
 }
 
 void SerialController::bufferReset()

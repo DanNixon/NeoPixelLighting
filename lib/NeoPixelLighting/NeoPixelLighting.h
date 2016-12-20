@@ -18,8 +18,8 @@ public:
   void begin(uint8_t pin, uint16_t numPixels);
   void update();
 
-  bool addEffect(IEffect * effect);
-  uint8_t getEffectIdx(IEffect * effect);
+  bool addEffect(IEffect *effect);
+  uint8_t getEffectIdx(IEffect *effect);
 
   inline uint8_t getNumEffects() const
   {
@@ -31,7 +31,7 @@ public:
     return m_currentEffectIdx;
   }
 
-  bool addController(IController * controller);
+  bool addController(IController *controller);
 
   void setBrightness(uint8_t brightness);
   void switchToEffect(uint8_t effectIdx);

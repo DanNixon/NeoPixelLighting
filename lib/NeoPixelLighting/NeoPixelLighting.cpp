@@ -26,15 +26,8 @@ void NeoPixelLighting::update()
 {
   m_effects[m_currentEffectIdx]->onOperate();
 
-  uint8_t nextEffect;
   for (uint8_t i = 0; i < m_numControllers; i++)
-  {
-    if (m_controllers[i]->testTransfer(&nextEffect))
-    {
-      switchToEffect(nextEffect);
-      return;
-    }
-  }
+    m_controllers[i]->update();
 }
 
 bool NeoPixelLighting::addEffect(IEffect *effect)
@@ -73,6 +66,9 @@ void NeoPixelLighting::setBrightness(uint8_t brightness)
 {
   m_leds->setBrightness(brightness);
   m_leds->show();
+
+  for (uint8_t i = 0; i < m_numControllers; i++)
+    m_controllers[i]->onSetBrightness(brightness);
 }
 
 void NeoPixelLighting::switchToEffect(uint8_t effectIdx)
@@ -80,4 +76,7 @@ void NeoPixelLighting::switchToEffect(uint8_t effectIdx)
   m_effects[m_currentEffectIdx]->onExit();
   m_currentEffectIdx = effectIdx;
   m_effects[m_currentEffectIdx]->onEntry();
+
+  for (uint8_t i = 0; i < m_numControllers; i++)
+    m_controllers[i]->onSetEffect(effectIdx);
 }
