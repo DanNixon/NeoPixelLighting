@@ -6,8 +6,9 @@
 #include <effects/Wheel.h>
 #include <effects/LowPowerSparkle.h>
 #include <controllers/EEPROMController.h>
+#include <controllers/SerialController.h>
 
-#define SERIAL_BAUD 115200
+#define SERIAL_BAUD 9600
 
 NeoPixelLighting lighting;
 
@@ -31,7 +32,10 @@ void setup()
   lighting.addEffect(new Wheel());
   lighting.addEffect(new LowPowerSparkle(120));
 
-  lighting.addController(new EEPROMController());
+  lighting.addController(new EEPROMController(0, true));
+#ifdef SERIAL_BAUD
+  lighting.addController(new SerialController(Serial));
+#endif
 }
 
 void loop()
