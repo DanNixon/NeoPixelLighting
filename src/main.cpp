@@ -31,7 +31,7 @@ void setup()
   lighting.addEffect(new Wheel());
   lighting.addEffect(new LowPowerSparkle(120));
 
-  lighting.addController(new EEPROMController(0, true));
+  lighting.addController(new EEPROMController(true));
 #ifdef SERIAL_BAUD
   lighting.addController(new SerialController(Serial));
 #endif
