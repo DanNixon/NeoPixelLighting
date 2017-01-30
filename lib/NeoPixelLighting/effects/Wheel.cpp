@@ -27,6 +27,7 @@ Wheel::Wheel()
 
 void Wheel::onOperate()
 {
+  /* TODO: make non blocking */
   uint16_t i, j;
   for (j = 0; j < 256; j++)
   {

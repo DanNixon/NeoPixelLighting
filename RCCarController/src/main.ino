@@ -1,4 +1,5 @@
 #include <EEPROM.h>
+#include <IRLibAll.h>
 
 #include <NeoPixelLighting.h>
 #include <IEffect.h>

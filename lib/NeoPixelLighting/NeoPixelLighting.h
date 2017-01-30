@@ -26,6 +26,11 @@ public:
     return m_numEffects;
   }
 
+  uint8_t getBrightness() const
+  {
+    return m_leds->getBrightness();
+  }
+
   inline uint8_t getCurrentEffectIdx() const
   {
     return m_currentEffectIdx;
@@ -33,7 +38,9 @@ public:
 
   bool addController(IController *controller);
 
-  void setBrightness(uint8_t brightness);
+  void setOff();
+  void setOn();
+  void setBrightness(int16_t brightness);
   void switchToEffect(uint8_t effectIdx);
 
 protected:
@@ -46,6 +53,7 @@ protected:
   uint8_t m_numControllers;
 
   uint8_t m_currentEffectIdx;
+  uint8_t m_brightnessBeforeOff;
 };
 
 #endif

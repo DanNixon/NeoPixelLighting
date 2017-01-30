@@ -5,6 +5,7 @@ NeoPixelLighting::NeoPixelLighting()
     , m_numEffects(0)
     , m_numControllers(0)
     , m_currentEffectIdx(0)
+    , m_brightnessBeforeOff(0)
 {
   uint8_t i;
 
@@ -62,8 +63,37 @@ bool NeoPixelLighting::addController(IController *controller)
   return true;
 }
 
-void NeoPixelLighting::setBrightness(uint8_t brightness)
+void NeoPixelLighting::setOff()
 {
+  m_brightnessBeforeOff = m_leds->getBrightness();
+  setBrightness(0);
+}
+
+void NeoPixelLighting::setOn()
+{
+  if (m_brightnessBeforeOff == 0)
+    return;
+
+  setBrightness(m_brightnessBeforeOff);
+  m_effects[m_currentEffectIdx]->onEntry();
+  m_brightnessBeforeOff = 0;
+}
+
+void NeoPixelLighting::setBrightness(int16_t brightness)
+{
+  if (brightness < 0)
+    brightness = 0;
+  else if (brightness > 255)
+    brightness = 255;
+
+  uint8_t current = m_leds->getBrightness();
+
+  if (brightness == current)
+    return;
+
+  if (brightness == 0)
+    m_brightnessBeforeOff = current;
+
   m_leds->setBrightness(brightness);
   m_leds->show();
 
@@ -73,6 +103,9 @@ void NeoPixelLighting::setBrightness(uint8_t brightness)
 
 void NeoPixelLighting::switchToEffect(uint8_t effectIdx)
 {
+  if (effectIdx > m_numEffects)
+    return;
+
   m_effects[m_currentEffectIdx]->onExit();
   m_currentEffectIdx = effectIdx;
   m_effects[m_currentEffectIdx]->onEntry();
