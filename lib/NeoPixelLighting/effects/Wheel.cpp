@@ -22,18 +22,18 @@ uint32_t wheel(byte wheel_pos)
 
 Wheel::Wheel()
     : IEffect()
+    , m_wheelPos(0)
 {
 }
 
 void Wheel::onOperate()
 {
-  /* TODO: make non blocking */
-  uint16_t i, j;
-  for (j = 0; j < 256; j++)
-  {
-    for (i = 0; i < m_leds->numPixels(); i++)
-      m_leds->setPixelColor(i, wheel((i + j) & 255));
-    m_leds->show();
-    delay(25);
-  }
+  m_wheelPos++;
+  if (m_wheelPos > 255)
+    m_wheelPos = 0;
+
+  for (uint16_t i = 0; i < m_leds->numPixels(); i++)
+    m_leds->setPixelColor(i, wheel((i + m_wheelPos) & 255));
+  m_leds->show();
+  delay(25);
 }

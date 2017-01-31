@@ -9,6 +9,9 @@ public:
   Wheel();
 
   virtual void onOperate() override;
+
+private:
+  uint16_t m_wheelPos;
 };
 
 #endif

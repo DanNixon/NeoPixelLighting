@@ -34,19 +34,18 @@ void setup()
   lighting.addEffect(new StaticColour(0, 0, 255));      // Blue
   lighting.addEffect(new StaticColour(255, 255, 255));  // White
 
-  /* TODO */
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 1
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 2
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 3
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 4
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 5
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 6
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 7
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 8
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 9
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 10
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 11
-  lighting.addEffect(new StaticColour(0, 0, 0));        // Colour 12
+  lighting.addEffect(new StaticColour(212, 25, 25));    // Colour 1
+  lighting.addEffect(new StaticColour(47, 212, 47));    // Colour 2
+  lighting.addEffect(new StaticColour(28, 31, 201));    // Colour 3
+  lighting.addEffect(new StaticColour(212, 44, 25));    // Colour 4
+  lighting.addEffect(new StaticColour(30, 217, 176));   // Colour 5
+  lighting.addEffect(new StaticColour(69, 17, 158));    // Colour 6
+  lighting.addEffect(new StaticColour(212, 122, 25));   // Colour 7
+  lighting.addEffect(new StaticColour(30, 155, 217));   // Colour 8
+  lighting.addEffect(new StaticColour(144, 18, 179));   // Colour 9
+  lighting.addEffect(new StaticColour(237, 195, 28));   // Colour 10
+  lighting.addEffect(new StaticColour(20, 65, 125));    // Colour 11
+  lighting.addEffect(new StaticColour(255, 0, 217));    // Colour 12
 
   lighting.addController(new EEPROMController(false));
   lighting.addController(new IRController(2, remote2));
