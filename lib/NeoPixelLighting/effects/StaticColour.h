@@ -1,5 +1,4 @@
-#ifndef _EFFECTS_STATICCOLOUR_H_
-#define _EFFECTS_STATICCOLOUR_H_
+#pragma once
 
 #include "../IEffect.h"
 
@@ -13,5 +12,3 @@ public:
 protected:
   uint32_t m_colour;
 };
-
-#endif

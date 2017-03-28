@@ -5,6 +5,10 @@ IEffect::IEffect()
 {
 }
 
+IEffect::~IEffect()
+{
+}
+
 void IEffect::setAllLEDs(uint32_t colour)
 {
   for (size_t i = 0; i < m_leds->numPixels(); i++)

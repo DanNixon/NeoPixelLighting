@@ -1,5 +1,4 @@
-#ifndef _ICONTROLLER_H_
-#define _ICONTROLLER_H_
+#pragma once
 
 class NeoPixelLighting;
 
@@ -26,5 +25,3 @@ public:
 protected:
   NeoPixelLighting *m_host;
 };
-
-#endif

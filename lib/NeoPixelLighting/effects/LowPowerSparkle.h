@@ -1,5 +1,4 @@
-#ifndef _EFFECT_RIPPLE_H_
-#define _EFFECT_RIPPLE_H_
+#pragma once
 
 #include "../IEffect.h"
 
@@ -27,5 +26,3 @@ protected:
   uint8_t m_green[RIPPLE_COUNT];
   uint8_t m_blue[RIPPLE_COUNT];
 };
-
-#endif

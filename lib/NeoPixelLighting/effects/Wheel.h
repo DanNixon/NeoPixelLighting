@@ -1,5 +1,4 @@
-#ifndef _EFFECTS_WHEEL_H_
-#define _EFFECTS_WHEEL_H_
+#pragma once
 
 #include "../IEffect.h"
 
@@ -13,5 +12,3 @@ public:
 private:
   uint16_t m_wheelPos;
 };
-
-#endif

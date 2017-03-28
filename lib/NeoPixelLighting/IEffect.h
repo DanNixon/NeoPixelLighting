@@ -1,5 +1,4 @@
-#ifndef _IEFFECT_H_
-#define _IEFFECT_H_
+#pragma once
 
 #include <Adafruit_NeoPixel.h>
 
@@ -9,6 +8,7 @@ class IEffect
 
 public:
   IEffect();
+  virtual ~IEffect();
 
   virtual void onEntry()
   {
@@ -29,5 +29,3 @@ protected:
 protected:
   Adafruit_NeoPixel *m_leds;
 };
-
-#endif

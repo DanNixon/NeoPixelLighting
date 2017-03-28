@@ -1,5 +1,4 @@
-#ifndef _SERIALCONTROLLER_H_
-#define _SERIALCONTROLLER_H_
+#pragma once
 
 #include <inttypes.h>
 #include <Stream.h>
@@ -26,5 +25,3 @@ protected:
   char m_buffer[BUFFER_LEN];
   uint16_t m_bufferPos;
 };
-
-#endif

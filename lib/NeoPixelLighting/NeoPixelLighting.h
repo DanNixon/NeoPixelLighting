@@ -1,5 +1,4 @@
-#ifndef _NEOPIXELLIGHTING_H_
-#define _NEOPIXELLIGHTING_H_
+#pragma once
 
 #include <Adafruit_NeoPixel.h>
 
@@ -55,5 +54,3 @@ protected:
   uint8_t m_currentEffectIdx;
   uint8_t m_brightnessBeforeOff;
 };
-
-#endif

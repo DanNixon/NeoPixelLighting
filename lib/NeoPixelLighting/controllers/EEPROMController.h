@@ -1,5 +1,4 @@
-#ifndef _EEPROMCONTROLLER_H_
-#define _EEPROMCONTROLLER_H_
+#pragma once
 
 #include <inttypes.h>
 
@@ -22,5 +21,3 @@ protected:
   bool m_executed;
   bool m_incrementOnPower;
 };
-
-#endif

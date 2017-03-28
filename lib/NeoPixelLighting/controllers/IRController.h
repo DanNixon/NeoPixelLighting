@@ -1,5 +1,4 @@
-#ifndef _IRCONTROLLER_H_
-#define _IRCONTROLLER_H_
+#pragma once
 
 #include <inttypes.h>
 #include <IRLib2.h>
@@ -62,5 +61,3 @@ private:
   IRControllerRemote m_remote;
   uint8_t m_brightnessDelta;
 };
-
-#endif
