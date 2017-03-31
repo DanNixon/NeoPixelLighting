@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef NO_IR
+
 #include <inttypes.h>
 #include <IRLib2.h>
 
@@ -61,3 +63,5 @@ private:
   IRControllerRemote m_remote;
   uint8_t m_brightnessDelta;
 };
+
+#endif

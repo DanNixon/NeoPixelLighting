@@ -1,5 +1,7 @@
 #include "IRController.h"
 
+#ifndef NO_IR
+
 #include "../NeoPixelLighting.h"
 
 IRController::IRController(uint8_t rxPin, IRControllerRemote remote,
@@ -83,3 +85,5 @@ void IRController::handleCommand(IRControllerCommand command)
       break;
   }
 }
+
+#endif
