@@ -6,7 +6,6 @@
 
 #include <controllers/EEPROMController.h>
 #include <controllers/IRController.h>
-#include <controllers/SerialController.h>
 
 void led_setup()
 {

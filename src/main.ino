@@ -1,5 +1,6 @@
 #include <EEPROM.h>
 #include <NeoPixelLighting.h>
+#include <controllers/SerialController.h>
 
 NeoPixelLighting lighting;
 
@@ -9,6 +10,7 @@ void setup()
 {
 #ifdef SERIAL_BAUD
   Serial.begin(SERIAL_BAUD);
+  Serial.println("Hello");
 #endif
 
   lighting.begin(LED_PIN, LED_COUNT);
@@ -18,6 +20,9 @@ void setup()
 #ifdef SERIAL_BAUD
   lighting.addController(new SerialController(Serial));
 #endif
+
+  lighting.setBrightness(255);
+  lighting.switchToEffect(0);
 }
 
 void loop()
