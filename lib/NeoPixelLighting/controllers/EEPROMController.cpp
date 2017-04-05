@@ -1,7 +1,7 @@
 #include "EEPROMController.h"
 
-#include <EEPROM.h>
 #include "../NeoPixelLighting.h"
+#include <EEPROM.h>
 
 EEPROMController::EEPROMController(bool incrementOnPower)
     : IController()

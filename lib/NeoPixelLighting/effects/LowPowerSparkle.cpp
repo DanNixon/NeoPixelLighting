@@ -53,9 +53,10 @@ void LowPowerSparkle::onOperate()
 void LowPowerSparkle::ripple(int idx, int count)
 {
   int brightnessDivider = count;
-  uint32_t colour = Adafruit_NeoPixel::Color(brightnessDivider == 0 ? 255 : m_red[idx] / brightnessDivider,
-                                             brightnessDivider == 0 ? 255 : m_green[idx] / brightnessDivider,
-                                             brightnessDivider == 0 ? 255 : m_blue[idx] / brightnessDivider);
+  uint32_t colour = Adafruit_NeoPixel::Color(
+      brightnessDivider == 0 ? 255 : m_red[idx] / brightnessDivider,
+      brightnessDivider == 0 ? 255 : m_green[idx] / brightnessDivider,
+      brightnessDivider == 0 ? 255 : m_blue[idx] / brightnessDivider);
 
   if ((m_ripples[idx] + count) < m_leds->numPixels())
     m_leds->setPixelColor(m_ripples[idx] + count, colour);

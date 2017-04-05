@@ -2,8 +2,8 @@
 
 #ifndef NO_IR
 
-#include <inttypes.h>
 #include <IRLib2.h>
+#include <inttypes.h>
 
 #include "../IController.h"
 
@@ -50,7 +50,8 @@ struct IRControllerRemote
 class IRController : public IController
 {
 public:
-  IRController(uint8_t rxPin, IRControllerRemote remote, uint8_t brightnessDelta = 16);
+  IRController(uint8_t rxPin, IRControllerRemote remote,
+               uint8_t brightnessDelta = 16);
 
   virtual void update() override;
 

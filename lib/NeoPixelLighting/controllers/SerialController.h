@@ -1,7 +1,7 @@
 #pragma once
 
-#include <inttypes.h>
 #include <Stream.h>
+#include <inttypes.h>
 
 #include "../IController.h"
 

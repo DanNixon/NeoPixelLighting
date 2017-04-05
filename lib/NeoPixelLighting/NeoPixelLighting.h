@@ -2,8 +2,8 @@
 
 #include <Adafruit_NeoPixel.h>
 
-#include "IEffect.h"
 #include "IController.h"
+#include "IEffect.h"
 
 class NeoPixelLighting
 {
