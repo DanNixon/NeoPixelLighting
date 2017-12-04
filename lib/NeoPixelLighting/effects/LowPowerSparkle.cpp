@@ -63,3 +63,39 @@ void LowPowerSparkle::ripple(int idx, int count)
   if ((m_ripples[idx] - count) >= 0)
     m_leds->setPixelColor(m_ripples[idx] - count, colour);
 }
+
+
+/* TODO: Use Alistair's new code: */
+/* // An array to hold the starting posiition of each ripple */
+/* int ripples[RIPPLECOUNT]; */
+/* // Pointer to the next ripple to move */
+/* int ripplePos = 0; */
+/* void loop() */
+/* { */
+/*   // Move the next ripple to a new positon */
+/*   ripples[ripplePos] = random(0, LEDCOUNT - 1); */
+/*   // Clear the strip */
+/*   strip.clear(); */
+/*   // Loop thought each ripple (oldest and darkest first) and add it to the strip */
+/*   int j = 0; */
+/*   for (int i = 0; i < RIPPLECOUNT; i++) */
+/*   { */
+/*     j = (ripplePos + i + 1) % RIPPLECOUNT; */
+/*     rippleOne(ripples[j], (RIPPLECOUNT - i), red[j], green[j], blue[j]); */
+/*   } */
+/*   // Push the new colours to the strip */
+/*   strip.show(); */
+/*   // Update the pointer for the next loop */
+/*   ripplePos = (ripplePos + 1) % RIPPLECOUNT; */
+/*   // Wait a frame */
+/*   delay(40); */
+/* } */
+/* void rippleOne(int inStart, int inCount, int inRed, int inGreen, int inBlue) */
+/* { */
+/*   strip.setPixelColor( */
+/*       (inStart + inCount) % LEDCOUNT, */
+/*       strip.Color(inRed / inCount, inGreen / inCount, inBlue / inCount)); */
+/*   strip.setPixelColor( */
+/*       (inStart + LEDCOUNT - inCount) % LEDCOUNT, */
+/*       strip.Color(inRed / inCount, inGreen / inCount, inBlue / inCount)); */
+/* } */
